@@ -552,6 +552,12 @@ getDEE2_bundle <- function(species, query, col, counts="GeneCounts",
     }
     zipname = paste(tempfile(),".zip",sep="")
     fname = bundles[which(bundles[,col] %in% query),1]
+    datcnt=length(fname)
+    if ( datcnt > 1 ) {
+      MSG <- paste("Note! Found",datcnt,"matches:", paste(as.character(fname),collapse=" "),
+        ". Returning only the first one")
+      fname <- fname[1]
+    }
     murl = paste(baseURL,species,"/",fname,sep="")
     getURL(URL=murl,FUN=download.file, N.TRIES=1L,
         destfile=zipname, mode = "wb" , ...)
